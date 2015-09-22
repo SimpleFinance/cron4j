@@ -1,62 +1,101 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.simple</groupId>
+
+    <groupId>com.simple.thirdparty</groupId>
     <artifactId>cron4j</artifactId>
     <version>2.2.5-HOTFIX</version>
+    <name>cron4j</name>
     <packaging>jar</packaging>
+
     <description>
-	cron4j is a scheduler for the Java platform which is very similar to the UNIX cron daemon.
-	With cron4j you can launch, from within your Java applications, any task you need at the right time,
-	according to some simple rules.
+        cron4j is a scheduler for the Java platform which is very
+        similar to the UNIX cron daemon. With cron4j you can launch, from
+        within your Java applications, any task you need at the right time,
+        according to some simple rules.
     </description>
-    <distributionManagement>
-        <repository>
-            <id>sauronsoftware-github</id>
-            <url>https://raw.github.com/Takuto88/sauronsoftware-maven/master/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>sauronsoftware-github-snapshots</id>
-            <url>https://raw.github.com/Takuto88/sauronsoftware-maven/master/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <url>http://www.sauronsoftware.it/projects/cron4j/</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/SimpleFinance/cron4j.git</connection>
+        <developerConnection>scm:git:git@github.com/SimpleFinance/cron4j.git</developerConnection>
+        <url>https://github.com/SimpleFinance/cron4j</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License v2.1</name>
+            <url>https://github.com/SimpleFinance/cron4j/blob/master/LICENSE.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ian Eure</name>
+            <email>ieure@simple.com</email>
+            <organization>Simple</organization>
+            <organizationUrl>https://simple.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.major.version>1.7</java.major.version>
+
+        <joda-time.version>2.6</joda-time.version>
+        <junit.version>4.12</junit.version>
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <file.encoding>${encoding}</file.encoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
-        <sourceDirectory>src</sourceDirectory>
-        <scriptSourceDirectory>src</scriptSourceDirectory>
-        <testSourceDirectory>src</testSourceDirectory>
-        <resources>
-            <resource>
-                <directory>src</directory>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src</directory>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-            </plugin>
-            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.4</source>
-                    <target>1.4</target>
+                    <encoding>${encoding}</encoding>
+                    <fork>true</fork>
+                    <source>${java.major.version}</source>
+                    <target>${java.major.version}</target>
+                    <testSource>${java.major.version}</testSource>
+                    <testTarget>${java.major.version}</testTarget>
+                    <meminitial>512m</meminitial>
+                    <maxmem>2048m</maxmem>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadoc</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <argLine>-Xmx2048m</argLine>
+                    <useFile>false</useFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
