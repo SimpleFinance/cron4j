@@ -164,7 +164,7 @@ public class Predictor {
 		// Go a minute ahead.
 		time += 60000;
 		// Is it matching?
-		if (schedulingPattern.match(time)) {
+		if (schedulingPattern.match(timeZone, time)) {
 			return time;
 		}
 		// Go through the matcher groups.
